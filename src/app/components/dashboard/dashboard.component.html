@@ -1,0 +1,75 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h1>Contact Management List</h1>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+        <div class="col-3 p-3 m-3">
+          <form [formGroup]="appReactiveForm" (ngSubmit)='onSubmit()'>
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <input type="text" class="form-control" id="fname" placeholder="First Name" required formControlName="firstname">
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input type="text" class="form-control" id="lname" placeholder="Last Name" required formControlName="firstname">
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter email address" required formControlName="email">
+            </div>
+            <div class="form-group">
+              <label for="phoneNo">Email</label>
+              <input type="number" class="form-control" id="phoneNo" placeholder="Phone number" formControlName="phoneNo">
+            </div>
+            <div class="form-group">
+              <select class="form-control" id="status" formControlName="status">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
+            </div>
+            <div class="form-group">
+
+            </div>
+            <button class="btn btn-success">Submit Entry</button>
+          </form>
+        </div>
+        <div class="col-8 p-3 m-3">
+
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col" colspan="3">Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let contact of contactInfoData" >
+                <th scope="row">{{contact.id}}</th>
+                <td>
+                  <span (dblclick)='choseItem(contact)' *ngIf='!contact.editFlag'>{{contact.first_name}}</span>
+                  <input type="text" name="" id="" *ngIf='contact.editFlag' [(ngModel)]='contact.first_name' (keypress)="editContact($event,contact)" >
+                </td>
+                <td>
+                  <span (dblclick)='choseItem(contact)' *ngIf='!contact.editFlag'>{{contact.last_name}}</span>
+                  <input type="text" name="" id="" *ngIf='contact.editFlag' [(ngModel)]='contact.last_name' (keypress)="editContact($event,contact)" >
+                </td>
+                <td>
+                  <span (dblclick)='choseItem(contact)' *ngIf='!contact.editFlag'>{{contact.email}}</span>
+                  <input type="text" name="" id="" *ngIf='contact.editFlag' [(ngModel)]='contact.email' (keypress)="editContact($event,contact)" >
+                </td>
+                <td><button (click)='deleteContact(contact.id)'>Delete</button></td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>*Double click to edit the row</tr>
+            </tfoot>
+          </table>
+        </div>
+    </div>
+  </div>
+</div>
